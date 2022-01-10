@@ -26,6 +26,8 @@ class Game():
         self.all_sprites = pg.sprite.Group()
         self.enemies = pg.sprite.Group()
         self.projectiles = pg.sprite.Group()
+        self.blocks = pg.sprite.Group()
+
  
         self.my_player = Player()
         self.all_sprites.add(self.my_player)
@@ -33,6 +35,8 @@ class Game():
         self.freak = Enemy()
         self.all_sprites.add(self.freak)
         self.enemies.add(self.freak)
+
+    
  
         self.run()
  
@@ -66,6 +70,10 @@ class Game():
             self.freak = Enemy()
             self.all_sprites.add(self.freak)
             self.enemies.add(self.freak)
+        while len(self.blocks) < 30:
+            self.block = Block()
+            self.all_sprites.add(self.block)
+            self.blocks.add(self.block)
  
  
     def draw(self):
@@ -83,6 +91,8 @@ class Game():
  
         # oppdaterer alle endringer på spill vinduet
         pg.display.update()
+           
+
  
 g = Game()
 
