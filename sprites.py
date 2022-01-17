@@ -41,7 +41,7 @@ class Player(pg.sprite.Sprite):
 
 
 
-class Enemy(pg.sprite.Sprite):
+class Ball(pg.sprite.Sprite):
     def __init__(self):
         pg.sprite.Sprite.__init__(self)
         self.image = enemy_image
@@ -49,17 +49,22 @@ class Enemy(pg.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.pos = vec(1000, randint(0, 200)) # start posisjon
         self.rect.center = self.pos
-        self.speed = 1
-        self.pos
+        self.speed_x = 1
+        self.speed_y = 1
+       
 
 
     def update(self):
-        self.pos.x += self.speed
-        self.pos.y += self.speed
+        self.pos.x += self.speed_x
+        self.pos.y += self.speed_y
         if self.pos.x > 800: # hvis til høyre for skjerm
             self.speed_x = -1
         if self.pos.x < 0: # hvis til venstre for skjerm
             self.speed_x = 1
+    
+        if self.pos.y += 0 
+        
+
         self.rect.center = self.pos
 
 

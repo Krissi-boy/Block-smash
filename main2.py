@@ -1,8 +1,8 @@
 import pygame as pg
 from sprites import *
  
-WIDTH = 2000
-HEIGHT = 1000
+WIDTH = 1000
+HEIGHT = 500
 FPS = 120
  
 BLACK = (0,0,0)
@@ -24,7 +24,7 @@ class Game():
     
     def new(self):
         self.all_sprites = pg.sprite.Group()
-        self.enemies = pg.sprite.Group()
+        self.balls = pg.sprite.Group()
         self.projectiles = pg.sprite.Group()
         self.blocks = pg.sprite.Group()
 
@@ -32,9 +32,9 @@ class Game():
         self.my_player = Player()
         self.all_sprites.add(self.my_player)
  
-        self.freak = Enemy()
-        self.all_sprites.add(self.freak)
-        self.enemies.add(self.freak)
+        self.ball = Ball()
+        self.all_sprites.add(self.ball)
+        self.balls.add(self.ball)
 
     
  
@@ -63,13 +63,20 @@ class Game():
     def update(self):
         self.all_sprites.update()
  
-        self.hits = pg.sprite.spritecollide(self.my_player, self.enemies, True)
+        self.hits = pg.sprite.spritecollide(self.my_player, self.balls, False)
+        if self.hits:
+            self.ball.speed_y *= -1
+
+        self.hits = pg.sprite.spritecollide(self.balls, self.my_blocks, False)
+        if self.hits:
+            self.ball.speed_y *= -1
  
         # spawn enemies
-        while len(self.enemies) < 1:
-            self.freak = Enemy()
-            self.all_sprites.add(self.freak)
-            self.enemies.add(self.freak)
+        while len(self.balls) < 1:
+            self.ball = Ball()
+            self.all_sprites.add(self.ball)
+            self.balls.add(self.ball)
+
         while len(self.blocks) < 30:
             self.block = Block()
             self.all_sprites.add(self.block)
