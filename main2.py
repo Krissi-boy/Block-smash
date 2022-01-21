@@ -49,7 +49,7 @@ class Game():
             self.update()
             self.draw()
  
-        self.new()
+        self.new() 
  
     def events(self):
         for event in pg.event.get():
