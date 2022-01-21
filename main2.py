@@ -101,22 +101,6 @@ class Game():
         pg.display.update()
 
 
-
-    def collision():
-        global ball, balls, ball_y
-
-
-        if ball.rect.colliderect(balls):
-            print("Collision detected")
-            ball_y = "up"
-            print(ball_y)
-            print(balls.yb)
-            speed_up()
-
-        for ball in balls:
-            if ball.rect.colliderect(balls):
-                ball_y = "down"
-
             
 
            

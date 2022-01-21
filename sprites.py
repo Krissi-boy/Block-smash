@@ -15,7 +15,7 @@ class Player(pg.sprite.Sprite):
         self.image = player_image
         self.image = pg.transform.scale(self.image, (300,30))
         self.rect = self.image.get_rect()
-        self.pos = vec(500, 500)
+        self.pos = vec(1000, 900)
         self.rect.center = self.pos
         self.speed = 5
         self.hp = 100
@@ -26,11 +26,6 @@ class Player(pg.sprite.Sprite):
     def update(self):
         keys = pg.key.get_pressed()
 
-        if keys[pg.K_w]:
-            self.pos.y -= self.speed
-            print("w")
-        if keys[pg.K_s]:
-            self.pos.y += self.speed
         if keys[pg.K_a]:
             self.pos.x -= self.speed
         if keys[pg.K_d]:
@@ -47,7 +42,7 @@ class Ball(pg.sprite.Sprite):
         self.image = enemy_image
         self.image = pg.transform.scale(self.image, (50,50))
         self.rect = self.image.get_rect()
-        self.pos = vec(1000, randint(0, 200)) # start posisjon
+        self.pos = vec(700, randint(700, 800)) # start posisjon
         self.rect.center = self.rect.center
         self.speed_x = 1
         self.speed_y = 1
@@ -75,7 +70,7 @@ class Block(pg.sprite.Sprite):
         self.image = block_image
         self.image = pg.transform.scale(self.image, (150,100))
         self.rect = self.image.get_rect()
-        self.pos = vec(300, 300)
+        self.pos = vec(1000, 100)
         self.rect.center = self.pos
         self.speed = 0.1
         self.pos.x = randint(0, WIDTH)
