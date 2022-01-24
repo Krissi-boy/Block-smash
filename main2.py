@@ -1,8 +1,8 @@
 import pygame as pg
 from sprites import *
  
-WIDTH = 1000
-HEIGHT = 500
+WIDTH = 2000
+HEIGHT = 1000
 FPS = 120
  
 BLACK = (0,0,0)
@@ -16,7 +16,6 @@ class Game():
  
         # lager font/teksttype med størrelse 30
         self.comic_sans30 = pg.font.SysFont("Comic Sans MS", 30)
- 
         self.screen = pg.display.set_mode((WIDTH, HEIGHT))
         self.clock = pg.time.Clock()
  
@@ -67,9 +66,11 @@ class Game():
         if self.hits:
             self.ball.speed_y *= -1
 
-        self.hits = pg.sprite.spritecollide(self.balls, self.my_blocks, False)
+        self.hits = pg.sprite.spritecollide(self.ball, self.blocks, False)
         if self.hits:
             self.ball.speed_y *= -1
+
+        self.hit_block = pg.sprite.spritecollide(self.ball, self.blocks, True)
  
         # spawn enemies
         while len(self.balls) < 1:
