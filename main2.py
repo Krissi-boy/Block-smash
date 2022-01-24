@@ -1,9 +1,8 @@
-from subprocess import BELOW_NORMAL_PRIORITY_CLASS
 import pygame as pg
 from sprites import *
  
-WIDTH = 2000
-HEIGHT = 1000
+WIDTH = 1000
+HEIGHT = 500
 FPS = 120
  
 BLACK = (0,0,0)
@@ -57,8 +56,8 @@ class Game():
                 self.playing = False
                 pg.quit()
  
-            if event.type == pg.KEYUP:
-                if event.key == pg.K_ESCAPE:
+            if event.type == pg.KEYDOWN:
+                if event.key == pg.K_1:
                     self.playing = False
                             
     def update(self):
@@ -68,7 +67,7 @@ class Game():
         if self.hits:
             self.ball.speed_y *= -1
 
-        self.hits = pg.sprite.spritecollide(self.ball, self.blocks, True)
+        self.hits = pg.sprite.spritecollide(self.balls, self.my_blocks, False)
         if self.hits:
             self.ball.speed_y *= -1
  

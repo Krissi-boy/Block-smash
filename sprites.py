@@ -17,7 +17,7 @@ class Player(pg.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.pos = vec(1000, 900)
         self.rect.center = self.pos
-        self.speed = 5
+        self.speed = 10
         self.hp = 100
     # linjen over setter en ny verdi på self.image,tallene til slutt er størrelsen på bilde i x og y
 
@@ -44,6 +44,8 @@ class Ball(pg.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.pos = vec(700, randint(700, 800)) # start posisjon
         self.rect.center = self.rect.center
+        self.pos = vec(1000, randint(0, 200)) # start posisjon
+        self.rect.center = self.pos
         self.speed_x = 1
         self.speed_y = 1
        
@@ -57,9 +59,8 @@ class Ball(pg.sprite.Sprite):
         if self.pos.x < 0: # hvis til venstre for skjerm
             self.speed_x = 1
     
-        if self.pos.y <= 0:
-            self.speed_y = 1
-        
+        if self.pos.y += 0 
+            
 
         self.rect.center = self.pos
 
