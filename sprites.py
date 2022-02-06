@@ -2,6 +2,7 @@ import pygame as pg
 vec = pg.math.Vector2
 from random import randint
 
+
 enemy_image = pg.image.load("enemy.png")
 player_image = pg.image.load("player.png")
 block_image = pg.image.load("block.png")

@@ -1,5 +1,7 @@
+from tracemalloc import start
 import pygame as pg
 from sprites import *
+from pygame import mixer
  
 WIDTH = 2000
 HEIGHT = 1000
@@ -15,11 +17,34 @@ class Game():
         pg.init()
  
         # lager font/teksttype med størrelse 30
+        self.image = ("background.jpg")
+        
         self.comic_sans30 = pg.font.SysFont("Comic Sans MS", 30)
         self.screen = pg.display.set_mode((WIDTH, HEIGHT))
         self.clock = pg.time.Clock()
  
         self.new()
+
+
+
+
+    def __init__(self):
+       # Starting the mixer
+        pg.init()
+  
+        # Loading the song
+        pg.mixer.music.load("song.mp3")
+  
+        # Setting the volume
+        mixer.music.set_volume(0.7)
+  
+        # Start playing the song
+        mixer.music.play(start)
+    
+
+
+
+
     
     def new(self):
         self.all_sprites = pg.sprite.Group()
