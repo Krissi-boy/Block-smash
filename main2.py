@@ -1,10 +1,9 @@
-from tracemalloc import start
 import pygame as pg
 from sprites import *
 from pygame import mixer
  
-WIDTH = 2000
-HEIGHT = 1000
+WIDTH = 1200
+HEIGHT = 900
 FPS = 120
  
 BLACK = (0,0,0)
@@ -16,31 +15,24 @@ class Game():
     def __init__(self):
         pg.init()
  
+        self.bg_image = pg.image.load("background.jpg")
+        self.bg_image = pg.transform.scale(self.bg_image, (WIDTH, HEIGHT))
         # lager font/teksttype med størrelse 30
-        self.image = ("background.jpg")
-        
         self.comic_sans30 = pg.font.SysFont("Comic Sans MS", 30)
         self.screen = pg.display.set_mode((WIDTH, HEIGHT))
         self.clock = pg.time.Clock()
  
+        # Loading the song
+        pg.mixer.music.load("song.mp3")
+  
+        # Setting the volume
+    
         self.new()
 
 
 
 
-    def __init__(self):
-       # Starting the mixer
-        pg.init()
-  
-        # Loading the song
-        pg.mixer.music.load("song.mp3")
-  
-        # Setting the volume
-        mixer.music.set_volume(0.7)
-  
-        # Start playing the song
-        mixer.music.play(start)
-    
+   
 
 
 
@@ -59,6 +51,11 @@ class Game():
         self.ball = Ball()
         self.all_sprites.add(self.ball)
         self.balls.add(self.ball)
+        
+        mixer.music.set_volume(0.7)
+  
+        # Start playing the song
+        mixer.music.play(-1)
 
     
  
@@ -91,11 +88,11 @@ class Game():
         if self.hits:
             self.ball.speed_y *= -1
 
-        self.hits = pg.sprite.spritecollide(self.ball, self.blocks, False)
+        self.hits = pg.sprite.groupcollide(self.balls, self.blocks, False, True)
         if self.hits:
             self.ball.speed_y *= -1
-
-        self.hit_block = pg.sprite.spritecollide(self.ball, self.blocks, True)
+            self.smash_sound = pg.mixer.Sound("smash.wav")
+            pg.mixer.Sound.play(self.smash_sound)
  
         # spawn enemies
         while len(self.balls) < 1:
@@ -111,7 +108,8 @@ class Game():
  
     def draw(self):
         # tegner ting til skjerm på valgt posisjon, og størrelse
-        self.screen.fill(WHITE)
+        #self.screen.fill(WHITE)
+        self.screen.blit(self.bg_image, (0, 0))
  
         self.all_sprites.draw(self.screen)
  

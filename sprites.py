@@ -7,8 +7,8 @@ enemy_image = pg.image.load("enemy.png")
 player_image = pg.image.load("player.png")
 block_image = pg.image.load("block.png")
 
-WIDTH = 2000
-HEIGHT = 1000
+WIDTH = 1200
+HEIGHT = 900
 
 class Player(pg.sprite.Sprite):
     def __init__(self):
@@ -16,9 +16,9 @@ class Player(pg.sprite.Sprite):
         self.image = player_image
         self.image = pg.transform.scale(self.image, (300,30))
         self.rect = self.image.get_rect()
-        self.pos = vec(1000, 900)
+        self.pos = vec(WIDTH/2, 850)
         self.rect.center = self.pos
-        self.speed = 5
+        self.speed = 6
         self.hp = 100
     # linjen over setter en ny verdi på self.image,tallene til slutt er størrelsen på bilde i x og y
 
@@ -43,9 +43,7 @@ class Ball(pg.sprite.Sprite):
         self.image = enemy_image
         self.image = pg.transform.scale(self.image, (50,50))
         self.rect = self.image.get_rect()
-        self.pos = vec(200, randint(100, 800)) # start posisjon
-        self.rect.center = self.rect.center
-        self.pos = vec(600, randint(100, 800)) # start posisjon
+        self.pos = vec(WIDTH/2, randint(90, 100)) # start posisjon
         self.rect.center = self.pos
         self.speed_x = 3
         self.speed_y = 3
@@ -55,7 +53,7 @@ class Ball(pg.sprite.Sprite):
     def update(self):
         self.pos.x += self.speed_x
         self.pos.y += self.speed_y
-        if self.pos.x > 800: # hvis til høyre for skjerm
+        if self.pos.x > WIDTH: # hvis til høyre for skjerm
             self.speed_x = -1
         if self.pos.x < 0: # hvis til venstre for skjerm
             self.speed_x = 1
@@ -75,7 +73,7 @@ class Block(pg.sprite.Sprite):
         self.image = block_image
         self.image = pg.transform.scale(self.image, (150,100))
         self.rect = self.image.get_rect()
-        self.pos = vec(1000, 100)
+        self.pos = vec(800, 100)
         self.rect.center = self.pos
         self.speed = 0.1
         self.pos.x = randint(0, WIDTH)
