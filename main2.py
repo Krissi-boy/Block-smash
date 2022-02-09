@@ -87,12 +87,14 @@ class Game():
         self.hits = pg.sprite.spritecollide(self.my_player, self.balls, False)
         if self.hits:
             self.ball.speed_y *= -1
+            self.jumpsmash_sound = pg.mixer.Sound("jumpsmash.wav")
+            pg.mixer.Sound.play(self.jumpsmash_sound)
 
         self.hits = pg.sprite.groupcollide(self.balls, self.blocks, False, True)
         if self.hits:
             self.ball.speed_y *= -1
-            self.smash_sound = pg.mixer.Sound("smash.wav")
-            pg.mixer.Sound.play(self.smash_sound)
+            self.blocksmash_sound = pg.mixer.Sound("blocksmash.wav")
+            pg.mixer.Sound.play(self.blocksmash_sound)
  
         # spawn enemies
         while len(self.balls) < 1:
