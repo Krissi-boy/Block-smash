@@ -38,15 +38,16 @@ class Player(pg.sprite.Sprite):
 
 
 class Ball(pg.sprite.Sprite):
-    def __init__(self):
+    def __init__(self, game):
         pg.sprite.Sprite.__init__(self)
+        self.game = game
         self.image = enemy_image
         self.image = pg.transform.scale(self.image, (50,50))
         self.rect = self.image.get_rect()
-        self.pos = vec(WIDTH/2, randint(90, 100)) # start posisjon
+        self.pos = vec(WIDTH/2, HEIGHT) # start posisjon
         self.rect.center = self.pos
         self.speed_x = 3
-        self.speed_y = 3
+        self.speed_y = -3
        
 
 
@@ -68,15 +69,15 @@ class Ball(pg.sprite.Sprite):
 
 
 class Block(pg.sprite.Sprite):
-    def __init__(self):
+    def __init__(self, x ,y):
         pg.sprite.Sprite.__init__(self)
         self.image = block_image
         self.image = pg.transform.scale(self.image, (150,100))
         self.rect = self.image.get_rect()
-        self.pos = vec(800, 100)
+        self.pos = vec(x, y)
         self.rect.center = self.pos
-        self.speed = 0.1
-        self.pos.x = randint(0, WIDTH)
+        self.speed = 0.3
+        #self.pos.x = randint(0, WIDTH)
     
 
 

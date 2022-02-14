@@ -24,18 +24,12 @@ class Game():
  
         # Loading the song
         pg.mixer.music.load("song.mp3")
-  
+        
         # Setting the volume
-    
+        self.jumpsmash_sound = pg.mixer.Sound("jumpsmash.wav")
+        self.blocksmash_sound = pg.mixer.Sound("blocksmash.wav")
+
         self.new()
-
-
-
-
-   
-
-
-
 
     
     def new(self):
@@ -48,15 +42,17 @@ class Game():
         self.my_player = Player()
         self.all_sprites.add(self.my_player)
  
-        self.ball = Ball()
+        self.ball = Ball(self)
         self.all_sprites.add(self.ball)
         self.balls.add(self.ball)
+
+
+        self.spawn_blocks()
         
         mixer.music.set_volume(0.7)
   
         # Start playing the song
         mixer.music.play(-1)
-
     
  
         self.run()
@@ -80,20 +76,117 @@ class Game():
             if event.type == pg.KEYDOWN:
                 if event.key == pg.K_1:
                     self.playing = False
-                            
+
+    def spawn_blocks(self):        
+        x = 150
+        y = -100
+        for block in range(0,5):
+            self.block = Block(x, y)
+            self.all_sprites.add(self.block)
+            self.blocks.add(self.block)
+            x += 150
+            block += 1
+  
+        x = 150
+        y = -200
+        for block in range(0,5):
+            self.block = Block(x, y)
+            self.all_sprites.add(self.block)
+            self.blocks.add(self.block)
+            x += 150
+            block += 1
+       
+        x = 400
+        y = -300
+        for block in range(0,5):
+            self.block = Block(x, y)
+            self.all_sprites.add(self.block)
+            self.blocks.add(self.block)
+            x += 150
+            block += 1
+
+        x = 500
+        y = -400
+        for block in range(0,8):
+            self.block = Block(x, y)
+            self.all_sprites.add(self.block)
+            self.blocks.add(self.block)
+            x += 150
+            block += 1
+
+        x = 400
+        y = -350
+        for block in range(0,8):
+            self.block = Block(x, y)
+            self.all_sprites.add(self.block)
+            self.blocks.add(self.block)
+            x += 150
+            block += 1
+
+        x = 400
+        y = -450
+        for block in range(0,8):
+            self.block = Block(x, y)
+            self.all_sprites.add(self.block)
+            self.blocks.add(self.block)
+            x += 150
+            block += 1
+
+        x = 400
+        y = -250
+        for block in range(0,8):
+            self.block = Block(x, y)
+            self.all_sprites.add(self.block)
+            self.blocks.add(self.block)
+            x += 150
+            block += 1
+
+        x = 400
+        y = -150
+        for block in range(0,3):
+            self.block = Block(x, y)
+            self.all_sprites.add(self.block)
+            self.blocks.add(self.block)
+            x += 150
+            block += 1
+
+        x = 400
+        y = -325
+        for block in range(0,8):
+            self.block = Block(x, y)
+            self.all_sprites.add(self.block)
+            self.blocks.add(self.block)
+            x += 150
+            block += 1
+
+        x = 400
+        y = -425
+        for block in range(0,8):
+            self.block = Block(x, y)
+            self.all_sprites.add(self.block)
+            self.blocks.add(self.block)
+            x += 150
+            block += 1
+
     def update(self):
         self.all_sprites.update()
  
         self.hits = pg.sprite.spritecollide(self.my_player, self.balls, False)
         if self.hits:
-            self.ball.speed_y *= -1
-            self.jumpsmash_sound = pg.mixer.Sound("jumpsmash.wav")
+            if self.my_player.pos.x > self.ball.pos.x:
+                self.ball.speed_x = -3
+
+            else:
+                self.ball.speed_x = 3
+
+            self.ball.speed_y = -3
+
+
             pg.mixer.Sound.play(self.jumpsmash_sound)
 
         self.hits = pg.sprite.groupcollide(self.balls, self.blocks, False, True)
         if self.hits:
             self.ball.speed_y *= -1
-            self.blocksmash_sound = pg.mixer.Sound("blocksmash.wav")
             pg.mixer.Sound.play(self.blocksmash_sound)
  
         # spawn enemies
@@ -101,12 +194,9 @@ class Game():
             self.ball = Ball()
             self.all_sprites.add(self.ball)
             self.balls.add(self.ball)
-
-        while len(self.blocks) < 30:
-            self.block = Block()
-            self.all_sprites.add(self.block)
-            self.blocks.add(self.block)
- 
+        
+        if len(self.blocks) <= 0:
+            self.spawn_blocks()
  
     def draw(self):
         # tegner ting til skjerm på valgt posisjon, og størrelse
