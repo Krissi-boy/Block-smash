@@ -6,6 +6,7 @@ from random import randint
 enemy_image = pg.image.load("enemy.png")
 player_image = pg.image.load("player.png")
 block_image = pg.image.load("block.png")
+finish_image = pg.image.load("game over.png")
 
 WIDTH = 1200
 HEIGHT = 900
@@ -19,7 +20,7 @@ class Player(pg.sprite.Sprite):
         self.pos = vec(WIDTH/2, 850)
         self.rect.center = self.pos
         self.speed = 6
-        self.hp = 100
+        self.hp = 0
     # linjen over setter en ny verdi på self.image,tallene til slutt er størrelsen på bilde i x og y
 
 
@@ -76,7 +77,7 @@ class Block(pg.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.pos = vec(x, y)
         self.rect.center = self.pos
-        self.speed = 0.3
+        self.speed = 0.2
         #self.pos.x = randint(0, WIDTH)
     
 

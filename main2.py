@@ -16,6 +16,7 @@ class Game():
         pg.init()
  
         self.bg_image = pg.image.load("background.jpg")
+        self.finish_image = pg.image.load("game over.png")
         self.bg_image = pg.transform.scale(self.bg_image, (WIDTH, HEIGHT))
         # lager font/teksttype med størrelse 30
         self.comic_sans30 = pg.font.SysFont("Comic Sans MS", 30)
@@ -33,6 +34,8 @@ class Game():
 
     
     def new(self):
+
+        self.game_over = False
         self.all_sprites = pg.sprite.Group()
         self.balls = pg.sprite.Group()
         self.projectiles = pg.sprite.Group()
@@ -78,35 +81,17 @@ class Game():
                     self.playing = False
 
     def spawn_blocks(self):        
-        x = 150
+        x = 75
         y = -100
-        for block in range(0,5):
+        for block in range(0,8):
             self.block = Block(x, y)
             self.all_sprites.add(self.block)
             self.blocks.add(self.block)
             x += 150
             block += 1
-  
+
         x = 150
-        y = -200
-        for block in range(0,5):
-            self.block = Block(x, y)
-            self.all_sprites.add(self.block)
-            self.blocks.add(self.block)
-            x += 150
-            block += 1
-       
-        x = 400
         y = -300
-        for block in range(0,5):
-            self.block = Block(x, y)
-            self.all_sprites.add(self.block)
-            self.blocks.add(self.block)
-            x += 150
-            block += 1
-
-        x = 500
-        y = -400
         for block in range(0,8):
             self.block = Block(x, y)
             self.all_sprites.add(self.block)
@@ -114,8 +99,8 @@ class Game():
             x += 150
             block += 1
 
-        x = 400
-        y = -350
+        x = 75
+        y = -500
         for block in range(0,8):
             self.block = Block(x, y)
             self.all_sprites.add(self.block)
@@ -123,8 +108,8 @@ class Game():
             x += 150
             block += 1
 
-        x = 400
-        y = -450
+        x = 150
+        y = -700
         for block in range(0,8):
             self.block = Block(x, y)
             self.all_sprites.add(self.block)
@@ -132,8 +117,8 @@ class Game():
             x += 150
             block += 1
 
-        x = 400
-        y = -250
+        x = 75
+        y = -900
         for block in range(0,8):
             self.block = Block(x, y)
             self.all_sprites.add(self.block)
@@ -141,17 +126,8 @@ class Game():
             x += 150
             block += 1
 
-        x = 400
-        y = -150
-        for block in range(0,3):
-            self.block = Block(x, y)
-            self.all_sprites.add(self.block)
-            self.blocks.add(self.block)
-            x += 150
-            block += 1
-
-        x = 400
-        y = -325
+        x = 150
+        y = -1100
         for block in range(0,8):
             self.block = Block(x, y)
             self.all_sprites.add(self.block)
@@ -159,8 +135,17 @@ class Game():
             x += 150
             block += 1
 
-        x = 400
-        y = -425
+        x = 150
+        y = -1300
+        for block in range(0,8):
+            self.block = Block(x, y)
+            self.all_sprites.add(self.block)
+            self.blocks.add(self.block)
+            x += 150
+            block += 1
+
+        x = 75
+        y = -1500
         for block in range(0,8):
             self.block = Block(x, y)
             self.all_sprites.add(self.block)
@@ -170,7 +155,15 @@ class Game():
 
     def update(self):
         self.all_sprites.update()
- 
+
+        self.hits = pg.sprite.spritecollide(self.my_player, self.blocks, True)
+        if self.hits:
+            self.game_over = True
+            
+            
+          
+
+
         self.hits = pg.sprite.spritecollide(self.my_player, self.balls, False)
         if self.hits:
             if self.my_player.pos.x > self.ball.pos.x:
@@ -188,7 +181,10 @@ class Game():
         if self.hits:
             self.ball.speed_y *= -1
             pg.mixer.Sound.play(self.blocksmash_sound)
- 
+
+            if not self.game_over:
+                 self.my_player.hp += 1
+            
         # spawn enemies
         while len(self.balls) < 1:
             self.ball = Ball()
@@ -202,6 +198,12 @@ class Game():
         # tegner ting til skjerm på valgt posisjon, og størrelse
         #self.screen.fill(WHITE)
         self.screen.blit(self.bg_image, (0, 0))
+
+        if self.game_over:
+
+
+            self.screen.blit (self.finish_image, (430, 300))
+
  
         self.all_sprites.draw(self.screen)
  
