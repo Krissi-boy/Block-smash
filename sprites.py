@@ -8,8 +8,8 @@ player_image = pg.image.load("player.png")
 block_image = pg.image.load("block.png")
 finish_image = pg.image.load("game over.png")
 
-WIDTH = 1200
-HEIGHT = 900
+WIDTH = 1300
+HEIGHT = 650
 
 class Player(pg.sprite.Sprite):
     def __init__(self):
@@ -17,7 +17,7 @@ class Player(pg.sprite.Sprite):
         self.image = player_image
         self.image = pg.transform.scale(self.image, (300,30))
         self.rect = self.image.get_rect()
-        self.pos = vec(WIDTH/2, 850)
+        self.pos = vec(WIDTH/2, HEIGHT -100)
         self.rect.center = self.pos
         self.speed = 6
         self.hp = 0

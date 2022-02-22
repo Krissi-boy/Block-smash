@@ -2,8 +2,8 @@ import pygame as pg
 from sprites import *
 from pygame import mixer
  
-WIDTH = 1200
-HEIGHT = 900
+WIDTH = 1300
+HEIGHT = 650
 FPS = 120
  
 BLACK = (0,0,0)
@@ -202,7 +202,7 @@ class Game():
         if self.game_over:
 
 
-            self.screen.blit (self.finish_image, (430, 300))
+            self.screen.blit (self.finish_image, (400, 250))
 
  
         self.all_sprites.draw(self.screen)
